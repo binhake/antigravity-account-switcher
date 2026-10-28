@@ -20,8 +20,8 @@ using Microsoft.Win32;
 [assembly: AssemblyCompany("Binhake")]
 [assembly: AssemblyProduct("Antigravity Account Switcher")]
 [assembly: AssemblyCopyright("Copyright © 2026 Binhake. MIT License.")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.1.0")]
+[assembly: AssemblyFileVersion("1.0.1.0")]
 
 namespace AntigravityAccountSwitcher
 {

@@ -46,9 +46,19 @@ A small Windows tool to **save and quickly switch between multiple Google accoun
 
 ### My antivirus flags it?
 
-You may see a false positive because:
-- the `.exe` is not code-signed, and
+**Seeing the blue "Windows protected your PC" screen?** Click **More info** → **Run anyway**. You only need to do this once.
+
+That screen is **SmartScreen**, not an antivirus. SmartScreen does not scan the file for malware. It warns because the file is **new and unsigned** and hasn't been downloaded enough times to build a reputation. The warning fades as more people download it.
+
+**VirusTotal results for v1.0.0** ([full report](https://www.virustotal.com/gui/file/31aca069aa699f68429b706789f3557e9dc1ee5d4cbd17235347412b29433faf)):
+- **Microsoft Defender, Kaspersky, ESET, Bitdefender** and most of the ~70 engines: **nothing detected**.
+- Only about 5 engines flag it, all of them **machine-learning predictions** (detection names containing `ML`, `Heur`, `Anomalous`…), not a match for any known malware.
+
+Machine-learning engines tend to misfire here because:
+- the `.exe` is unsigned and has few users, and
 - the app does things malware also does: it reads Windows Credential Manager, reads/writes Antigravity's login tokens and closes Antigravity's processes.
+
+ESET may hold the file for a few minutes of analysis on first run, then lets it run normally.
 
 The whole source is a single file, `AntigravitySwitcher.cs`, so you can review it and [build it yourself](#building-from-source) instead of using the downloaded `.exe`. If you trust it, add the app's folder to your antivirus exclusions.
 

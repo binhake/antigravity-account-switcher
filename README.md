@@ -44,9 +44,19 @@ Công cụ nhỏ cho Windows giúp **lưu và chuyển nhanh giữa nhiều tài
 
 ### Trình diệt virus cảnh báo?
 
-Có thể gặp cảnh báo nhầm (false positive). Lý do:
-- File `.exe` chưa được ký số.
-- Ứng dụng làm những việc mà phần mềm độc hại cũng hay làm: đọc Windows Credential Manager, đọc/ghi token của Antigravity, đóng tiến trình Antigravity.
+**Gặp màn hình xanh "Windows protected your PC"?** Bấm **More info** (Thông tin thêm) → **Run anyway** (Vẫn chạy). Chỉ cần làm một lần.
+
+Màn hình này là **SmartScreen**, không phải trình diệt virus. SmartScreen không quét mã độc trong file. Nó chỉ cảnh báo vì file **mới và chưa ký số**, chưa có đủ lượt tải để Windows "quen mặt". Cảnh báo sẽ tự thưa dần khi có thêm nhiều người tải.
+
+**Kết quả quét VirusTotal của bản v1.0.0** ([xem chi tiết](https://www.virustotal.com/gui/file/31aca069aa699f68429b706789f3557e9dc1ee5d4cbd17235347412b29433faf)):
+- **Microsoft Defender, Kaspersky, ESET, Bitdefender** và phần lớn khoảng 70 hãng: **không phát hiện gì**.
+- Chỉ khoảng 5 hãng báo, và đều là **dự đoán bằng máy học** (tên cảnh báo có chữ `ML`, `Heur`, `Anomalous`…), không phải nhận diện một mã độc cụ thể.
+
+Các bộ máy học hay báo nhầm vì:
+- file `.exe` chưa được ký số, ít người dùng;
+- ứng dụng làm những việc mà phần mềm độc hại cũng hay làm: đọc Windows Credential Manager, đọc/ghi token của Antigravity, đóng tiến trình Antigravity.
+
+ESET có thể giữ file lại phân tích vài phút trong lần chạy đầu, rồi cho chạy bình thường.
 
 Mã nguồn nằm trọn trong một file `AntigravitySwitcher.cs` để bạn tự kiểm tra, và bạn có thể [tự biên dịch](#biên-dịch-từ-mã-nguồn) thay vì dùng file `.exe` tải về. Nếu tin tưởng, hãy thêm thư mục chứa ứng dụng vào danh sách ngoại lệ (Exclusions) của trình diệt virus.
 
