@@ -1,0 +1,16 @@
+# Local data: saved sessions/tokens, settings, avatars, error logs — never commit
+profiles/
+logs/
+antigravity_sessions*.json
+
+# Build output (published through GitHub Releases instead)
+AntigravitySwitcher.exe
+*.bak
+
+# Markdown: only README.md is public, every other .md is a personal note
+*.md
+!README.md
+
+__pycache__/
+*.zip
+t/
