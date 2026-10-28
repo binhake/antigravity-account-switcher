@@ -4274,9 +4274,72 @@ namespace AntigravityAccountSwitcher
 
     internal class AccountListView : ListView
     {
+        [DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+
+        private const int LVM_GETHEADER = 0x101F;
+        private HeaderFillerPainter _headerPainter;
+
         public AccountListView()
         {
             DoubleBuffered = true;
+        }
+
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            IntPtr header = SendMessage(Handle, LVM_GETHEADER, IntPtr.Zero, IntPtr.Zero);
+            if (header != IntPtr.Zero)
+            {
+                _headerPainter = new HeaderFillerPainter(this);
+                _headerPainter.AssignHandle(header);
+            }
+        }
+
+        protected override void OnHandleDestroyed(EventArgs e)
+        {
+            if (_headerPainter != null)
+            {
+                _headerPainter.ReleaseHandle();
+                _headerPainter = null;
+            }
+            base.OnHandleDestroyed(e);
+        }
+
+        // The header control paints the strip right of the last column itself (always in light colors);
+        // repaint that strip with the themed header color after each paint
+        private sealed class HeaderFillerPainter : NativeWindow
+        {
+            private readonly AccountListView _owner;
+
+            public HeaderFillerPainter(AccountListView owner)
+            {
+                _owner = owner;
+            }
+
+            protected override void WndProc(ref Message m)
+            {
+                base.WndProc(ref m);
+                if (m.Msg != 0x000F) return; // WM_PAINT
+
+                int right = 0;
+                foreach (ColumnHeader col in _owner.Columns) right += col.Width;
+                using (Graphics g = Graphics.FromHwnd(Handle))
+                {
+                    Rectangle bounds = Rectangle.Round(g.VisibleClipBounds);
+                    int width = Math.Max(bounds.Width, _owner.ClientSize.Width);
+                    if (right >= width) return;
+                    int height = bounds.Height;
+                    UiPalette p = UiTheme.Current;
+                    using (SolidBrush b = new SolidBrush(p.HeaderRowBg))
+                    using (Pen pen = new Pen(p.RowDivider))
+                    {
+                        g.FillRectangle(b, right, 0, width - right, height);
+                        g.DrawLine(pen, right, 0, width, 0);
+                        g.DrawLine(pen, right, height - 1, width, height - 1);
+                    }
+                }
+            }
         }
 
         // The native list paints column lines below the last row; cover that strip with the card color

@@ -1,0 +1,20 @@
+name: Đề xuất tính năng / Feature request
+description: Ý tưởng để ứng dụng tốt hơn / An idea to make the app better
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Bạn đang gặp khó khăn gì? / What problem are you trying to solve?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Bạn muốn ứng dụng làm gì? / What would you like the app to do?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Cách bạn đang làm tạm / Current workaround

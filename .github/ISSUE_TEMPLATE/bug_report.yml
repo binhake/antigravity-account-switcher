@@ -1,0 +1,51 @@
+name: Báo lỗi / Bug report
+description: Ứng dụng chạy sai hoặc bị lỗi / Something doesn't work
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Cảm ơn bạn đã báo lỗi! **Đừng dán token, file `accounts.json` hay file Session vào đây.**
+        Thanks for reporting! **Never paste tokens, `accounts.json` or session files here.**
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Chuyện gì đã xảy ra? / What happened?
+      description: Bạn đã bấm gì, mong đợi gì, và thực tế ra sao. / What you did, what you expected, what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Các bước tái hiện / Steps to reproduce
+      placeholder: |
+        1. Tích "Antigravity IDE"
+        2. Bấm "Lưu TK đang đăng nhập"
+        3. ...
+  - type: input
+    id: app-version
+    attributes:
+      label: Phiên bản ứng dụng / App version
+      description: Chuột phải file .exe → Properties → Details → File version
+      placeholder: "1.0.0.0"
+    validations:
+      required: true
+  - type: input
+    id: antigravity-version
+    attributes:
+      label: Phiên bản Antigravity 2.0 / IDE
+      description: Hiện trên chip phiên bản ở góc phải trên của ứng dụng. / Shown on the version chip at the top right.
+      placeholder: "AG 2.0 v44.4.3 · IDE v2.5.5"
+  - type: input
+    id: windows
+    attributes:
+      label: Windows
+      placeholder: "Windows 11 24H2"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log lỗi / Error log
+      description: |
+        Nội dung file mới nhất trong thư mục `logs\` hoặc kết quả nút "Copy thông tin lỗi". Có email và tên máy, hãy xem lại trước khi gửi.
+        Contents of the newest file in `logs\` or the "Copy thông tin lỗi" output. It contains e-mails and the PC name; review it first.
+      render: text

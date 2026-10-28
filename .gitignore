@@ -7,9 +7,10 @@ antigravity_sessions*.json
 AntigravitySwitcher.exe
 *.bak
 
-# Markdown: only README.md is public, every other .md is a personal note
+# Markdown: only the READMEs are public, every other .md is a personal note
 *.md
 !README.md
+!README.en.md
 
 __pycache__/
 *.zip

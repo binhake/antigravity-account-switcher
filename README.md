@@ -1,6 +1,20 @@
 # Antigravity Account Switcher
 
+**Tiếng Việt** · [English](README.en.md)
+
+[![Release](https://img.shields.io/github/v/release/binhake/antigravity-account-switcher)](../../releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/binhake/antigravity-account-switcher/total)](../../releases)
+![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-0078D6)
+[![License](https://img.shields.io/github/license/binhake/antigravity-account-switcher)](LICENSE)
+
 Công cụ nhỏ cho Windows giúp **lưu và chuyển nhanh giữa nhiều tài khoản Google** trên **Antigravity 2.0** và **Antigravity IDE**, không cần đăng xuất / đăng nhập lại bằng tay.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshot-dark.png">
+  <img alt="Giao diện Antigravity Account Switcher" src="docs/screenshot-light.png">
+</picture>
+
+<sub>Ảnh tự đổi theo giao diện Sáng / Tối của GitHub bạn đang dùng. Dữ liệu trong ảnh là tài khoản giả.</sub>
 
 > ⚠️ Đây là công cụ **không chính thức**, không liên quan hay được Google xác nhận. Dùng với tài khoản của chính bạn và tự chịu trách nhiệm.
 
@@ -97,7 +111,15 @@ Trình biên dịch này chỉ hỗ trợ **C# 5**. Không dùng `$"..."`, `?.`,
 |---|---|
 | `AntigravitySwitcher.cs` | Toàn bộ mã nguồn (một file). |
 | `AntigravitySwitcher.ico` | Icon nhúng vào file `.exe`. |
+| `docs/` | Ảnh chụp màn hình dùng trong README. |
+| `.github/ISSUE_TEMPLATE/` | Mẫu báo lỗi / đề xuất tính năng. |
 | `legacy/antigravity_switcher.py` | Bản Python (Tkinter) đời đầu, không còn được cập nhật. |
+
+## Đóng góp
+
+Báo lỗi hoặc đề xuất tính năng ở mục [Issues](../../issues). Pull request luôn được chào đón. Hãy đọc mục [Biên dịch từ mã nguồn](#biên-dịch-từ-mã-nguồn) và giữ đúng cú pháp C# 5.
+
+Nếu công cụ giúp ích cho bạn, hãy để lại một ⭐ cho repo, để nhiều người khác cũng tìm thấy nó.
 
 ## Giấy phép
 
