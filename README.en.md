@@ -50,9 +50,16 @@ A small Windows tool to **save and quickly switch between multiple Google accoun
 
 That screen is **SmartScreen**, not an antivirus. SmartScreen does not scan the file for malware. It warns because the file is **new and unsigned** and hasn't been downloaded enough times to build a reputation. The warning fades as more people download it.
 
-**VirusTotal results for v1.0.0** ([full report](https://www.virustotal.com/gui/file/31aca069aa699f68429b706789f3557e9dc1ee5d4cbd17235347412b29433faf)):
-- **Microsoft Defender, Kaspersky, ESET, Bitdefender** and most of the ~70 engines: **nothing detected**.
-- Only about 5 engines flag it, all of them **machine-learning predictions** (detection names containing `ML`, `Heur`, `Anomalous`…), not a match for any known malware.
+**VirusTotal results for v1.0.1: 5/70** ([full report](https://www.virustotal.com/gui/file/633bea66e5af685919e7580ca4bcc6df9a39bbfacd22903e87fdab0ed9e4e862)):
+- **Microsoft Defender, Kaspersky, ESET, Bitdefender** and 61 other engines: **nothing detected**.
+- The 5 engines that flag it all use **machine-learning or heuristic predictions**, not a match for any known malware:
+  - CrowdStrike (`malicious_confidence_60%`)
+  - Malwarebytes (`MachineLearning/Anomalous`)
+  - Trapmine (`moderate.ml.score`)
+  - SecureAge
+  - VirIT (`MSIL_Heur`)
+
+  A false-positive report has been sent to Malwarebytes.
 
 Machine-learning engines tend to misfire here because:
 - the `.exe` is unsigned and has few users, and

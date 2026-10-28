@@ -48,9 +48,16 @@ Công cụ nhỏ cho Windows giúp **lưu và chuyển nhanh giữa nhiều tài
 
 Màn hình này là **SmartScreen**, không phải trình diệt virus. SmartScreen không quét mã độc trong file. Nó chỉ cảnh báo vì file **mới và chưa ký số**, chưa có đủ lượt tải để Windows "quen mặt". Cảnh báo sẽ tự thưa dần khi có thêm nhiều người tải.
 
-**Kết quả quét VirusTotal của bản v1.0.0** ([xem chi tiết](https://www.virustotal.com/gui/file/31aca069aa699f68429b706789f3557e9dc1ee5d4cbd17235347412b29433faf)):
-- **Microsoft Defender, Kaspersky, ESET, Bitdefender** và phần lớn khoảng 70 hãng: **không phát hiện gì**.
-- Chỉ khoảng 5 hãng báo, và đều là **dự đoán bằng máy học** (tên cảnh báo có chữ `ML`, `Heur`, `Anomalous`…), không phải nhận diện một mã độc cụ thể.
+**Kết quả quét VirusTotal của bản v1.0.1: 5/70** ([xem chi tiết](https://www.virustotal.com/gui/file/633bea66e5af685919e7580ca4bcc6df9a39bbfacd22903e87fdab0ed9e4e862)):
+- **Microsoft Defender, Kaspersky, ESET, Bitdefender** và 61 hãng khác: **không phát hiện gì**.
+- 5 hãng báo đều là **dự đoán bằng máy học hoặc heuristic**, không phải nhận diện một mã độc cụ thể:
+  - CrowdStrike (`malicious_confidence_60%`)
+  - Malwarebytes (`MachineLearning/Anomalous`)
+  - Trapmine (`moderate.ml.score`)
+  - SecureAge
+  - VirIT (`MSIL_Heur`)
+
+  Đã gửi báo nhầm cho Malwarebytes.
 
 Các bộ máy học hay báo nhầm vì:
 - file `.exe` chưa được ký số, ít người dùng;
