@@ -1282,8 +1282,29 @@ namespace AntigravityAccountSwitcher
 
         private string _cachedAgyExePath;
         private string _cachedAgyVersion;
+        private DateTime _cachedAgyStamp;
         private string _cachedIdeExePath;
         private string _cachedIdeVersion;
+        private DateTime _cachedIdeStamp;
+
+        // Newest write time of the exe and its "version" file: changes when an update installs over the same path
+        private static DateTime GetVersionStamp(string exePath)
+        {
+            try
+            {
+                DateTime stamp = File.GetLastWriteTimeUtc(exePath);
+                string versionFile = Path.Combine(Path.GetDirectoryName(exePath), "version");
+                if (File.Exists(versionFile))
+                {
+                    DateTime v = File.GetLastWriteTimeUtc(versionFile);
+                    if (v > stamp) stamp = v;
+                }
+                return stamp;
+            }
+            catch (IOException) { return DateTime.MinValue; }
+            catch (UnauthorizedAccessException) { return DateTime.MinValue; }
+            catch (ArgumentException) { return DateTime.MinValue; }
+        }
 
         public EnvironmentStatus InspectEnvironment()
         {
@@ -1391,7 +1412,9 @@ namespace AntigravityAccountSwitcher
             status.Version = "Chưa xác định";
             if (status.IsInstalled)
             {
-                if (string.Equals(_cachedAgyExePath, status.ExePath, StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(_cachedAgyVersion))
+                DateTime agyStamp = GetVersionStamp(status.ExePath);
+                if (string.Equals(_cachedAgyExePath, status.ExePath, StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(_cachedAgyVersion)
+                    && agyStamp == _cachedAgyStamp)
                 {
                     status.Version = _cachedAgyVersion;
                 }
@@ -1429,6 +1452,7 @@ namespace AntigravityAccountSwitcher
                         }
                         _cachedAgyExePath = status.ExePath;
                         _cachedAgyVersion = status.Version;
+                        _cachedAgyStamp = agyStamp;
                     }
                     catch { }
                 }
@@ -1493,7 +1517,9 @@ namespace AntigravityAccountSwitcher
             status.IdeVersion = "Chưa xác định";
             if (status.IdeIsInstalled)
             {
-                if (string.Equals(_cachedIdeExePath, status.IdeExePath, StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(_cachedIdeVersion))
+                DateTime ideStamp = GetVersionStamp(status.IdeExePath);
+                if (string.Equals(_cachedIdeExePath, status.IdeExePath, StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(_cachedIdeVersion)
+                    && ideStamp == _cachedIdeStamp)
                 {
                     status.IdeVersion = _cachedIdeVersion;
                 }
@@ -1508,6 +1534,7 @@ namespace AntigravityAccountSwitcher
                         }
                         _cachedIdeExePath = status.IdeExePath;
                         _cachedIdeVersion = status.IdeVersion;
+                        _cachedIdeStamp = ideStamp;
                     }
                     catch { }
                 }
@@ -4978,6 +5005,8 @@ namespace AntigravityAccountSwitcher
                 _core.Settings.ApplyToIde = _chkTargetIde.Checked;
                 _core.SaveSettings();
                 _core.Log("Đã " + (_chkTargetIde.Checked ? "BẬT" : "TẮT") + " áp dụng cho Antigravity IDE.");
+                // Find the OAuth client in the background now, so the first IDE save doesn't wait for it
+                if (_chkTargetIde.Checked) ThreadPool.QueueUserWorkItem(delegate { _core.PrewarmOAuthClientDiscovery(); });
             };
             _toolTip.SetToolTip(_chkTargetIde, "Tích chọn để đổi / lưu tài khoản đồng thời cho cả Antigravity IDE");
 
